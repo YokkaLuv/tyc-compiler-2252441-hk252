@@ -197,3 +197,6 @@ The `ASTGeneration` class must:
 ## License
 
 This project is developed for educational purposes as part of the **Principles of Programming Languages** course.
+
+**Author**: MEng. Trần Ngọc Bảo Duy  
+**Institution**: Faculty of Computer Science and Engineering, Ho Chi Minh City University of Technology, VNU-HCM
