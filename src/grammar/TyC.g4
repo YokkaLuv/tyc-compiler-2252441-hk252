@@ -7,12 +7,12 @@ from lexererr import *
 @lexer::members {
 def emit(self):
     tk = self.type
-    if tk == self.UNCLOSE_STRING:       
-        result = super().emit();
-        raise UncloseString(result.text);
-    elif tk == self.ILLEGAL_ESCAPE:
+    if tk == self.ILLEGAL_ESCAPE:
         result = super().emit();
         raise IllegalEscape(result.text);
+    elif tk == self.UNCLOSE_STRING:       
+        result = super().emit();
+        raise UncloseString(result.text);
     elif tk == self.ERROR_CHAR:
         result = super().emit();
         raise ErrorToken(result.text); 
@@ -56,7 +56,9 @@ blockStmt: LBRACE statementList RBRACE;
 
 statementList: statementList statement | ;
 
-assignStmt: ID ASSIGN expression SEMI;
+assignStmt: lvalue ASSIGN expression SEMI;
+
+lvalue: ID | postfixExpr DOT ID;
 
 ifStmt: IF LPAREN expression RPAREN statement elseOpt;
 
@@ -90,9 +92,7 @@ exprStmt: expression SEMI;
 
 expression: assignExpr;
 
-assignExpr: logicalOrExpr assignExprTail;
-
-assignExprTail: ASSIGN assignExpr | ;
+assignExpr: lvalue ASSIGN assignExpr | logicalOrExpr;
 
 logicalOrExpr: logicalAndExpr logicalOrExprTail;
 
@@ -140,6 +140,8 @@ argList: argListNonEmpty | ;
 
 argListNonEmpty: argListNonEmpty COMMA expression | expression;
 
+//lexer
+
 AUTO: 'auto';
 BREAK: 'break';
 CASE: 'case';
@@ -181,21 +183,23 @@ LPAREN: '(';
 RPAREN: ')';
 LBRACE: '{';
 RBRACE: '}';
-LBRACK: '[';
-RBRACK: ']';
 SEMI: ';';
 COMMA: ',';
 COLON: ':';
 
-FLOATLIT: '-'? [0-9]+ '.' [0-9]* ([eE] [+-]? [0-9]+)?
-        | '-'? '.' [0-9]+ ([eE] [+-]? [0-9]+)?
-        | '-'? [0-9]+ [eE] [+-]? [0-9]+;
+FLOATLIT: [0-9]+ '.' [0-9]* ([eE] [+-]? [0-9]+)?
+    | '.' [0-9]+ ([eE] [+-]? [0-9]+)?
+    | [0-9]+ [eE] [+-]? [0-9]+;
 
-INTLIT: '-'? [0-9]+;
+INTLIT: [0-9]+;
 
-STRINGLIT: '"' STR_CHAR* '"' {self.text = self.text[1:-1]};
+ILLEGAL_ESCAPE: '"' (STRING_CHAR)* '\\' ~[bfrnt"\\\r\n] {self.text = self.text[1:]};
 
-fragment STR_CHAR: ~["\r\n\\] | ESC_SEQ;
+UNCLOSE_STRING: '"' (STRING_CHAR)* ([\r\n] | EOF) {self.text = self.text[1:]};
+
+STRINGLIT: '"' STRING_CHAR* '"' {self.text = self.text[1:-1]};
+
+fragment STRING_CHAR: ~["\r\n\\] | ESC_SEQ;
 
 fragment ESC_SEQ: '\\' [bfrnt"\\];
 
@@ -206,9 +210,5 @@ BLOCK_COMMENT: '/*' .*? '*/' -> skip;
 LINE_COMMENT: '//' ~[\r\n]* -> skip;
 
 WS: [ \t\r\n\f]+ -> skip;
-
-UNCLOSE_STRING: '"' STR_CHAR* ([\r\n] | EOF) {self.text = self.text[1:]};
-
-ILLEGAL_ESCAPE: '"' STR_CHAR* '\\' ~[bfrnt"\\] {self.text = self.text[1:]};
 
 ERROR_CHAR: .;
