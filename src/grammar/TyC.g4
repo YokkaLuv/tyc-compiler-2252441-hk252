@@ -58,7 +58,7 @@ statementList: statementList statement | ;
 
 assignStmt: lvalue ASSIGN expression SEMI;
 
-lvalue: ID | postfixExpr DOT ID;
+lvalue: lvalue DOT ID | ID;
 
 ifStmt: IF LPAREN expression RPAREN statement elseOpt;
 
@@ -68,11 +68,11 @@ whileStmt: WHILE LPAREN expression RPAREN statement;
 
 forStmt: FOR LPAREN forInit SEMI forCond SEMI forUpdate RPAREN statement;
 
-forInit: varDeclStmt | assignStmt | exprStmt | ;
+forInit: (AUTO | typeSpec) ID varInit | expression | ;
 
 forCond: expression | ;
 
-forUpdate: assignStmt | expression;
+forUpdate: expression | ;
 
 switchStmt: SWITCH LPAREN expression RPAREN LBRACE caseClauseList RBRACE;
 
