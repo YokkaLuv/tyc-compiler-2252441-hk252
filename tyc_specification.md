@@ -187,9 +187,13 @@ Integer literals are of type **int**.
 
 #### Float literal
 
-Float literals are values that represent floating-point numbers. A float literal can be written in decimal notation (e.g., `3.14`, `0.5`, `123.456`) or in scientific notation (e.g., `1.23e4`, `5.67E-2`). A float literal may be preceded by a minus sign (`-`) to indicate a negative value.
+Float literals are values that represent floating-point numbers. A float literal consists of digits and may include a decimal point and/or an exponent part.
 
-The following are valid float numbers: `0.0` `3.14` `-2.5` `1.23e4` `5.67E-2` `1.` `.5`  
+A float literal must have at least one digit. If a decimal point is present, there must be at least one digit either before or after the decimal point (or both). The decimal point may be omitted if an exponent part is present.
+
+An exponent part consists of the letter `e` or `E`, optionally followed by a plus sign `+` or minus sign `-`, followed by one or more digits. The exponent sign is optional; if omitted, the exponent is positive. The exponent part itself is optional when a decimal point is present, but required when there is no decimal point.
+
+The following are valid float literals: `0.0` `3.14` `1.23e4` `5.67E-2` `1.` `.5` `1e4` `2E-3`  
 Float literals are of type **float**.
 
 #### String literals
@@ -215,6 +219,7 @@ Float literals are of type **float**.
 **String Token Processing:**
 - When a valid string literal is recognized, the lexer automatically removes (strips) the enclosing double quotes from both ends. The token value contains only the string content without the quotes.
 - For error cases (`ILLEGAL_ESCAPE` and `UNCLOSE_STRING`), the lexer removes the opening double quote, but the error message includes the problematic content.
+- For `ILLEGAL_ESCAPE` errors, the error message includes the string content from the beginning (without the opening quote) up to and including the illegal escape sequence (i.e., the backslash and the character that follows it that makes it illegal).
 
 **Error Detection Order:**
 The lexer checks for errors in the following order (first match wins):
@@ -531,14 +536,6 @@ or
 
 Assignment expressions are right-associative, allowing chained assignments such as `x = y = z = 10;`, which is parsed as `x = (y = (z = 10));`. Assignment expressions can be used in expression contexts, for example: `int y = (x = 5) + 7;`.
 
-### Primary Expression
-
-Primary expressions include:
-- **Identifiers**: `x`, `counter`, `myVar`
-- **Literals**: `123`, `3.14`, `"hello"`
-- **Parenthesized expressions**: `(x + y)`
-- **Member access**: `structVar.memberName`
-
 ### Operator Precedence and Associativity
 
 The order of precedence for operators is listed from highest to lowest:
@@ -628,21 +625,6 @@ For example:
     auto sum = x + y;
     printInt(sum);
 }
-```
-
-### Assignment Statement
-
-An **assignment statement** assigns a value to a variable. An assignment takes the following form:  
-```tyc
-<identifier> = <expression>;
-```
-
-The type of the value returned by the `<expression>` must match the type of the variable.  
-
-The following code fragment contains examples of assignment:
-```tyc
-x = 5;
-x = x + 1;
 ```
 
 ### If Statement
@@ -799,12 +781,17 @@ The type of the expression must match the return type of the function.
 
 ### Expression Statement
 
-An **expression statement** is an expression followed by a semicolon. Expression statements are used for their side effects (such as function calls).
+An **expression statement** is an expression followed by a semicolon. Expression statements are used for their side effects (such as function calls, assignments, or increment/decrement operations).
+
+An assignment expression can be used as an expression statement. When used as a statement, the assignment performs the side effect of updating the variable's value. The type of the value returned by the expression must match the type of the variable being assigned.
 
 For example:
 ```tyc
-printInt(x);
-x + y;  // valid but does nothing useful
+printInt(x);      // function call expression statement
+x = 5;            // assignment expression statement
+x = x + 1;        // assignment expression statement
+x++;              // increment expression statement
+x + y;            // valid but does nothing useful
 ```
 
 ---
@@ -1268,7 +1255,7 @@ The main structural elements include:
 
 - **Structs**: Composite types with named members of explicit types
 - **Functions**: Declarations with return types, parameters, and bodies
-- **Statements**: Variable declarations, assignments, control flow (if, while, for, switch-case), break, continue, return, expression statements, and blocks
+- **Statements**: Variable declarations, control flow (if, while, for, switch-case), break, continue, return, expression statements (including assignments), and blocks
 - **Expressions**: Primary expressions (identifiers, literals, parenthesized, member access), unary operations, binary operations following operator precedence, function calls, and postfix operations (increment/decrement)
 - **Types**: `int`, `float`, `string`, `void`, struct types, and type inference using `auto`
 - **Variable Declaration**: Can use `auto` for type inference or explicit types (`int`, `float`, `string`, or struct type names)
