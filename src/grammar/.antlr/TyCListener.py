@@ -161,6 +161,15 @@ class TyCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by TyCParser#lvalue.
+    def enterLvalue(self, ctx:TyCParser.LvalueContext):
+        pass
+
+    # Exit a parse tree produced by TyCParser#lvalue.
+    def exitLvalue(self, ctx:TyCParser.LvalueContext):
+        pass
+
+
     # Enter a parse tree produced by TyCParser#ifStmt.
     def enterIfStmt(self, ctx:TyCParser.IfStmtContext):
         pass
@@ -311,15 +320,6 @@ class TyCListener(ParseTreeListener):
 
     # Exit a parse tree produced by TyCParser#assignExpr.
     def exitAssignExpr(self, ctx:TyCParser.AssignExprContext):
-        pass
-
-
-    # Enter a parse tree produced by TyCParser#assignExprTail.
-    def enterAssignExprTail(self, ctx:TyCParser.AssignExprTailContext):
-        pass
-
-    # Exit a parse tree produced by TyCParser#assignExprTail.
-    def exitAssignExprTail(self, ctx:TyCParser.AssignExprTailContext):
         pass
 
 
