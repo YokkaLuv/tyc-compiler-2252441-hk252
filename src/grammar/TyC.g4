@@ -34,51 +34,51 @@ structDecl: STRUCT ID LBRACE structMemberList RBRACE SEMI;
 
 structMemberList: structMemberList structMember | ;
 
-structMember: typeSpec ID SEMI;
+structMember: primitive ID SEMI;
 
-funcDecl: (typeSpec | ) ID LPAREN paramList RPAREN blockStmt;
+funcDecl: primitive? ID LPAREN paramList RPAREN blockStmt;
 
-paramList: paramListNonEmpty | ;
+paramList: paramListSub | ;
 
-paramListNonEmpty: paramListNonEmpty COMMA param | param;
+paramListSub: paramListSub COMMA param | param;
 
-param: typeSpec ID;
+param: primitive ID;
 
-typeSpec: INT | FLOAT | STRING | ID;
+primitive: INT | FLOAT | STRING | ID;
 
 statement: varDeclStmt | blockStmt | assignStmt | ifStmt | whileStmt | forStmt | switchStmt | breakStmt | continueStmt | returnStmt | exprStmt;
 
-varDeclStmt: (AUTO | typeSpec) ID varInit SEMI;
+varDeclStmt: (AUTO | primitive) ID varInit SEMI;
 
 varInit: ASSIGN expression | ;
 
-blockStmt: LBRACE statementList RBRACE;
+blockStmt: LBRACE stmtList RBRACE;
 
-statementList: statementList statement | ;
+stmtList: stmtList statement | ;
 
-assignStmt: lvalue ASSIGN expression SEMI;
+assignStmt: object ASSIGN expression SEMI;
 
-lvalue: lvalue DOT ID | ID;
+object: object DOT ID | ID;
 
-ifStmt: IF LPAREN expression RPAREN statement elseOpt;
+ifStmt: IF LPAREN expression RPAREN statement elseStmt?;
 
-elseOpt: ELSE statement | ;
+elseStmt: ELSE statement;
 
 whileStmt: WHILE LPAREN expression RPAREN statement;
 
 forStmt: FOR LPAREN forInit SEMI forCond SEMI forUpdate RPAREN statement;
 
-forInit: (AUTO | typeSpec) ID varInit | expression | ;
+forInit: (AUTO | primitive) ID varInit | expression | ;
 
 forCond: expression | ;
 
 forUpdate: expression | ;
 
-switchStmt: SWITCH LPAREN expression RPAREN LBRACE caseClauseList RBRACE;
+switchStmt: SWITCH LPAREN expression RPAREN LBRACE clauseList RBRACE;
 
-caseClauseList: caseClauseList caseClause | ;
+clauseList: clauseList clause | ;
 
-caseClause: (CASE expression | DEFAULT) COLON statementList;
+clause: (CASE expression | DEFAULT) COLON stmtList;
 
 breakStmt: BREAK SEMI;
 
@@ -92,7 +92,7 @@ exprStmt: expression SEMI;
 
 expression: assignExpr;
 
-assignExpr: lvalue ASSIGN assignExpr | logicalOrExpr;
+assignExpr: object ASSIGN assignExpr | logicalOrExpr;
 
 logicalOrExpr: logicalAndExpr logicalOrExprTail;
 
@@ -132,13 +132,13 @@ primaryExpr: ID | INTLIT | FLOATLIT | STRINGLIT | LPAREN expression RPAREN | str
 
 structInit: LBRACE structInitList RBRACE;
 
-structInitList: structInitListNonEmpty | ;
+structInitList: structInitListSub | ;
 
-structInitListNonEmpty: structInitListNonEmpty COMMA expression | expression;
+structInitListSub: structInitListSub COMMA expression | expression;
 
-argList: argListNonEmpty | ;
+argList: argListSub | ;
 
-argListNonEmpty: argListNonEmpty COMMA expression | expression;
+argListSub: argListSub COMMA expression | expression;
 
 //lexer
 
