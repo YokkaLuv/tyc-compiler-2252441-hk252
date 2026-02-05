@@ -25,35 +25,28 @@ options{
 }
 
 program: declarationList EOF;
-
 declarationList: declarationList declaration | ;
-
 declaration: structDecl | funcDecl;
 
 structDecl: STRUCT ID LBRACE structMemberList RBRACE SEMI;
-
 structMemberList: structMemberList structMember | ;
-
 structMember: primitive ID SEMI;
 
-funcDecl: primitive? ID LPAREN paramList RPAREN blockStmt;
+funcDecl: returnType? ID LPAREN paramList RPAREN blockStmt;
 
 paramList: paramListSub | ;
-
 paramListSub: paramListSub COMMA param | param;
-
 param: primitive ID;
 
 primitive: INT | FLOAT | STRING | ID;
+returnType: VOID | primitive;
 
 statement: varDeclStmt | blockStmt | assignStmt | ifStmt | whileStmt | forStmt | switchStmt | breakStmt | continueStmt | returnStmt | exprStmt;
 
 varDeclStmt: (AUTO | primitive) ID varInit SEMI;
-
 varInit: ASSIGN expression | ;
 
 blockStmt: LBRACE stmtList RBRACE;
-
 stmtList: stmtList statement | ;
 
 assignStmt: object ASSIGN expression SEMI;
@@ -61,83 +54,48 @@ assignStmt: object ASSIGN expression SEMI;
 object: object DOT ID | ID;
 
 ifStmt: IF LPAREN expression RPAREN statement elseStmt?;
-
 elseStmt: ELSE statement;
-
 whileStmt: WHILE LPAREN expression RPAREN statement;
-
-forStmt: FOR LPAREN forInit SEMI forCond SEMI forUpdate RPAREN statement;
-
+forStmt: FOR LPAREN forInit SEMI optExpr SEMI optExpr RPAREN statement;
 forInit: (AUTO | primitive) ID varInit | expression | ;
-
-forCond: expression | ;
-
-forUpdate: expression | ;
-
+optExpr: expression | ;
 switchStmt: SWITCH LPAREN expression RPAREN LBRACE clauseList RBRACE;
 
 clauseList: clauseList clause | ;
-
 clause: (CASE expression | DEFAULT) COLON stmtList;
 
 breakStmt: BREAK SEMI;
-
 continueStmt: CONTINUE SEMI;
-
-returnStmt: RETURN returnExpr SEMI;
-
-returnExpr: expression | ;
+returnStmt: RETURN optExpr SEMI;
 
 exprStmt: expression SEMI;
-
 expression: assignExpr;
-
-assignExpr: object ASSIGN assignExpr | logicalOrExpr;
-
-logicalOrExpr: logicalAndExpr logicalOrExprTail;
-
-logicalOrExprTail: logicalOrExprTail OR logicalAndExpr | ;
-
-logicalAndExpr: equalityExpr logicalAndExprTail;
-
-logicalAndExprTail: logicalAndExprTail AND equalityExpr | ;
-
-equalityExpr: relationalExpr equalityExprTail;
-
-equalityExprTail: equalityExprTail (EQ | NEQ) relationalExpr | ;
-
-relationalExpr: additiveExpr relationalExprTail;
-
-relationalExprTail: relationalExprTail (LT | GT | LE | GE) additiveExpr | ;
-
-additiveExpr: multiplicativeExpr additiveExprTail;
-
-additiveExprTail: additiveExprTail (ADD | SUB) multiplicativeExpr | ;
-
-multiplicativeExpr: unaryExpr multiplicativeExprTail;
-
-multiplicativeExprTail: multiplicativeExprTail (MUL | DIV | MOD) unaryExpr | ;
-
+assignExpr: object ASSIGN assignExpr | orExpr;
+orExpr: andExpr orExprTail;
+orExprTail: orExprTail OR andExpr | ;
+andExpr: equalExpr andExprTail;
+andExprTail: andExprTail AND equalExpr | ;
+equalExpr: compareExpr equalExprTail;
+equalExprTail: equalExprTail (EQ | NEQ) compareExpr | ;
+compareExpr: addExpr compareExprTail;
+compareExprTail: compareExprTail (LT | GT | LE | GE) addExpr | ;
+addExpr: mulExpr addExprTail;
+addExprTail: addExprTail (ADD | SUB) mulExpr | ;
+mulExpr: unaryExpr mulExprTail;
+mulExprTail: mulExprTail (MUL | DIV | MOD) unaryExpr | ;
 unaryExpr: unaryOp unaryExpr | postfixExpr;
-
 unaryOp: ADD | SUB | NOT | INC | DEC;
 
 postfixExpr: primaryExpr postfixExprTail;
-
 postfixExprTail: postfixExprTail postfixOp | ;
-
 postfixOp: DOT ID | LPAREN argList RPAREN | INC | DEC;
-
 primaryExpr: ID | INTLIT | FLOATLIT | STRINGLIT | LPAREN expression RPAREN | structInit;
 
 structInit: LBRACE structInitList RBRACE;
-
 structInitList: structInitListSub | ;
-
 structInitListSub: structInitListSub COMMA expression | expression;
 
 argList: argListSub | ;
-
 argListSub: argListSub COMMA expression | expression;
 
 //lexer
