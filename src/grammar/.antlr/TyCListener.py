@@ -80,12 +80,12 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#paramListNonEmpty.
-    def enterParamListNonEmpty(self, ctx:TyCParser.ParamListNonEmptyContext):
+    # Enter a parse tree produced by TyCParser#paramListSub.
+    def enterParamListSub(self, ctx:TyCParser.ParamListSubContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#paramListNonEmpty.
-    def exitParamListNonEmpty(self, ctx:TyCParser.ParamListNonEmptyContext):
+    # Exit a parse tree produced by TyCParser#paramListSub.
+    def exitParamListSub(self, ctx:TyCParser.ParamListSubContext):
         pass
 
 
@@ -98,12 +98,21 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#typeSpec.
-    def enterTypeSpec(self, ctx:TyCParser.TypeSpecContext):
+    # Enter a parse tree produced by TyCParser#primitive.
+    def enterPrimitive(self, ctx:TyCParser.PrimitiveContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#typeSpec.
-    def exitTypeSpec(self, ctx:TyCParser.TypeSpecContext):
+    # Exit a parse tree produced by TyCParser#primitive.
+    def exitPrimitive(self, ctx:TyCParser.PrimitiveContext):
+        pass
+
+
+    # Enter a parse tree produced by TyCParser#returnType.
+    def enterReturnType(self, ctx:TyCParser.ReturnTypeContext):
+        pass
+
+    # Exit a parse tree produced by TyCParser#returnType.
+    def exitReturnType(self, ctx:TyCParser.ReturnTypeContext):
         pass
 
 
@@ -143,12 +152,12 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#statementList.
-    def enterStatementList(self, ctx:TyCParser.StatementListContext):
+    # Enter a parse tree produced by TyCParser#stmtList.
+    def enterStmtList(self, ctx:TyCParser.StmtListContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#statementList.
-    def exitStatementList(self, ctx:TyCParser.StatementListContext):
+    # Exit a parse tree produced by TyCParser#stmtList.
+    def exitStmtList(self, ctx:TyCParser.StmtListContext):
         pass
 
 
@@ -161,12 +170,12 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#lvalue.
-    def enterLvalue(self, ctx:TyCParser.LvalueContext):
+    # Enter a parse tree produced by TyCParser#object.
+    def enterObject(self, ctx:TyCParser.ObjectContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#lvalue.
-    def exitLvalue(self, ctx:TyCParser.LvalueContext):
+    # Exit a parse tree produced by TyCParser#object.
+    def exitObject(self, ctx:TyCParser.ObjectContext):
         pass
 
 
@@ -179,12 +188,12 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#elseOpt.
-    def enterElseOpt(self, ctx:TyCParser.ElseOptContext):
+    # Enter a parse tree produced by TyCParser#elseStmt.
+    def enterElseStmt(self, ctx:TyCParser.ElseStmtContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#elseOpt.
-    def exitElseOpt(self, ctx:TyCParser.ElseOptContext):
+    # Exit a parse tree produced by TyCParser#elseStmt.
+    def exitElseStmt(self, ctx:TyCParser.ElseStmtContext):
         pass
 
 
@@ -215,21 +224,12 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#forCond.
-    def enterForCond(self, ctx:TyCParser.ForCondContext):
+    # Enter a parse tree produced by TyCParser#optExpr.
+    def enterOptExpr(self, ctx:TyCParser.OptExprContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#forCond.
-    def exitForCond(self, ctx:TyCParser.ForCondContext):
-        pass
-
-
-    # Enter a parse tree produced by TyCParser#forUpdate.
-    def enterForUpdate(self, ctx:TyCParser.ForUpdateContext):
-        pass
-
-    # Exit a parse tree produced by TyCParser#forUpdate.
-    def exitForUpdate(self, ctx:TyCParser.ForUpdateContext):
+    # Exit a parse tree produced by TyCParser#optExpr.
+    def exitOptExpr(self, ctx:TyCParser.OptExprContext):
         pass
 
 
@@ -242,21 +242,21 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#caseClauseList.
-    def enterCaseClauseList(self, ctx:TyCParser.CaseClauseListContext):
+    # Enter a parse tree produced by TyCParser#clauseList.
+    def enterClauseList(self, ctx:TyCParser.ClauseListContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#caseClauseList.
-    def exitCaseClauseList(self, ctx:TyCParser.CaseClauseListContext):
+    # Exit a parse tree produced by TyCParser#clauseList.
+    def exitClauseList(self, ctx:TyCParser.ClauseListContext):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#caseClause.
-    def enterCaseClause(self, ctx:TyCParser.CaseClauseContext):
+    # Enter a parse tree produced by TyCParser#clause.
+    def enterClause(self, ctx:TyCParser.ClauseContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#caseClause.
-    def exitCaseClause(self, ctx:TyCParser.CaseClauseContext):
+    # Exit a parse tree produced by TyCParser#clause.
+    def exitClause(self, ctx:TyCParser.ClauseContext):
         pass
 
 
@@ -287,15 +287,6 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#returnExpr.
-    def enterReturnExpr(self, ctx:TyCParser.ReturnExprContext):
-        pass
-
-    # Exit a parse tree produced by TyCParser#returnExpr.
-    def exitReturnExpr(self, ctx:TyCParser.ReturnExprContext):
-        pass
-
-
     # Enter a parse tree produced by TyCParser#exprStmt.
     def enterExprStmt(self, ctx:TyCParser.ExprStmtContext):
         pass
@@ -323,111 +314,111 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#logicalOrExpr.
-    def enterLogicalOrExpr(self, ctx:TyCParser.LogicalOrExprContext):
+    # Enter a parse tree produced by TyCParser#orExpr.
+    def enterOrExpr(self, ctx:TyCParser.OrExprContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#logicalOrExpr.
-    def exitLogicalOrExpr(self, ctx:TyCParser.LogicalOrExprContext):
-        pass
-
-
-    # Enter a parse tree produced by TyCParser#logicalOrExprTail.
-    def enterLogicalOrExprTail(self, ctx:TyCParser.LogicalOrExprTailContext):
-        pass
-
-    # Exit a parse tree produced by TyCParser#logicalOrExprTail.
-    def exitLogicalOrExprTail(self, ctx:TyCParser.LogicalOrExprTailContext):
+    # Exit a parse tree produced by TyCParser#orExpr.
+    def exitOrExpr(self, ctx:TyCParser.OrExprContext):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#logicalAndExpr.
-    def enterLogicalAndExpr(self, ctx:TyCParser.LogicalAndExprContext):
+    # Enter a parse tree produced by TyCParser#orExprTail.
+    def enterOrExprTail(self, ctx:TyCParser.OrExprTailContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#logicalAndExpr.
-    def exitLogicalAndExpr(self, ctx:TyCParser.LogicalAndExprContext):
-        pass
-
-
-    # Enter a parse tree produced by TyCParser#logicalAndExprTail.
-    def enterLogicalAndExprTail(self, ctx:TyCParser.LogicalAndExprTailContext):
-        pass
-
-    # Exit a parse tree produced by TyCParser#logicalAndExprTail.
-    def exitLogicalAndExprTail(self, ctx:TyCParser.LogicalAndExprTailContext):
+    # Exit a parse tree produced by TyCParser#orExprTail.
+    def exitOrExprTail(self, ctx:TyCParser.OrExprTailContext):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#equalityExpr.
-    def enterEqualityExpr(self, ctx:TyCParser.EqualityExprContext):
+    # Enter a parse tree produced by TyCParser#andExpr.
+    def enterAndExpr(self, ctx:TyCParser.AndExprContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#equalityExpr.
-    def exitEqualityExpr(self, ctx:TyCParser.EqualityExprContext):
-        pass
-
-
-    # Enter a parse tree produced by TyCParser#equalityExprTail.
-    def enterEqualityExprTail(self, ctx:TyCParser.EqualityExprTailContext):
-        pass
-
-    # Exit a parse tree produced by TyCParser#equalityExprTail.
-    def exitEqualityExprTail(self, ctx:TyCParser.EqualityExprTailContext):
+    # Exit a parse tree produced by TyCParser#andExpr.
+    def exitAndExpr(self, ctx:TyCParser.AndExprContext):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#relationalExpr.
-    def enterRelationalExpr(self, ctx:TyCParser.RelationalExprContext):
+    # Enter a parse tree produced by TyCParser#andExprTail.
+    def enterAndExprTail(self, ctx:TyCParser.AndExprTailContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#relationalExpr.
-    def exitRelationalExpr(self, ctx:TyCParser.RelationalExprContext):
-        pass
-
-
-    # Enter a parse tree produced by TyCParser#relationalExprTail.
-    def enterRelationalExprTail(self, ctx:TyCParser.RelationalExprTailContext):
-        pass
-
-    # Exit a parse tree produced by TyCParser#relationalExprTail.
-    def exitRelationalExprTail(self, ctx:TyCParser.RelationalExprTailContext):
+    # Exit a parse tree produced by TyCParser#andExprTail.
+    def exitAndExprTail(self, ctx:TyCParser.AndExprTailContext):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#additiveExpr.
-    def enterAdditiveExpr(self, ctx:TyCParser.AdditiveExprContext):
+    # Enter a parse tree produced by TyCParser#equalExpr.
+    def enterEqualExpr(self, ctx:TyCParser.EqualExprContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#additiveExpr.
-    def exitAdditiveExpr(self, ctx:TyCParser.AdditiveExprContext):
-        pass
-
-
-    # Enter a parse tree produced by TyCParser#additiveExprTail.
-    def enterAdditiveExprTail(self, ctx:TyCParser.AdditiveExprTailContext):
-        pass
-
-    # Exit a parse tree produced by TyCParser#additiveExprTail.
-    def exitAdditiveExprTail(self, ctx:TyCParser.AdditiveExprTailContext):
+    # Exit a parse tree produced by TyCParser#equalExpr.
+    def exitEqualExpr(self, ctx:TyCParser.EqualExprContext):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#multiplicativeExpr.
-    def enterMultiplicativeExpr(self, ctx:TyCParser.MultiplicativeExprContext):
+    # Enter a parse tree produced by TyCParser#equalExprTail.
+    def enterEqualExprTail(self, ctx:TyCParser.EqualExprTailContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#multiplicativeExpr.
-    def exitMultiplicativeExpr(self, ctx:TyCParser.MultiplicativeExprContext):
+    # Exit a parse tree produced by TyCParser#equalExprTail.
+    def exitEqualExprTail(self, ctx:TyCParser.EqualExprTailContext):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#multiplicativeExprTail.
-    def enterMultiplicativeExprTail(self, ctx:TyCParser.MultiplicativeExprTailContext):
+    # Enter a parse tree produced by TyCParser#compareExpr.
+    def enterCompareExpr(self, ctx:TyCParser.CompareExprContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#multiplicativeExprTail.
-    def exitMultiplicativeExprTail(self, ctx:TyCParser.MultiplicativeExprTailContext):
+    # Exit a parse tree produced by TyCParser#compareExpr.
+    def exitCompareExpr(self, ctx:TyCParser.CompareExprContext):
+        pass
+
+
+    # Enter a parse tree produced by TyCParser#compareExprTail.
+    def enterCompareExprTail(self, ctx:TyCParser.CompareExprTailContext):
+        pass
+
+    # Exit a parse tree produced by TyCParser#compareExprTail.
+    def exitCompareExprTail(self, ctx:TyCParser.CompareExprTailContext):
+        pass
+
+
+    # Enter a parse tree produced by TyCParser#addExpr.
+    def enterAddExpr(self, ctx:TyCParser.AddExprContext):
+        pass
+
+    # Exit a parse tree produced by TyCParser#addExpr.
+    def exitAddExpr(self, ctx:TyCParser.AddExprContext):
+        pass
+
+
+    # Enter a parse tree produced by TyCParser#addExprTail.
+    def enterAddExprTail(self, ctx:TyCParser.AddExprTailContext):
+        pass
+
+    # Exit a parse tree produced by TyCParser#addExprTail.
+    def exitAddExprTail(self, ctx:TyCParser.AddExprTailContext):
+        pass
+
+
+    # Enter a parse tree produced by TyCParser#mulExpr.
+    def enterMulExpr(self, ctx:TyCParser.MulExprContext):
+        pass
+
+    # Exit a parse tree produced by TyCParser#mulExpr.
+    def exitMulExpr(self, ctx:TyCParser.MulExprContext):
+        pass
+
+
+    # Enter a parse tree produced by TyCParser#mulExprTail.
+    def enterMulExprTail(self, ctx:TyCParser.MulExprTailContext):
+        pass
+
+    # Exit a parse tree produced by TyCParser#mulExprTail.
+    def exitMulExprTail(self, ctx:TyCParser.MulExprTailContext):
         pass
 
 
@@ -503,12 +494,12 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#structInitListNonEmpty.
-    def enterStructInitListNonEmpty(self, ctx:TyCParser.StructInitListNonEmptyContext):
+    # Enter a parse tree produced by TyCParser#structInitListSub.
+    def enterStructInitListSub(self, ctx:TyCParser.StructInitListSubContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#structInitListNonEmpty.
-    def exitStructInitListNonEmpty(self, ctx:TyCParser.StructInitListNonEmptyContext):
+    # Exit a parse tree produced by TyCParser#structInitListSub.
+    def exitStructInitListSub(self, ctx:TyCParser.StructInitListSubContext):
         pass
 
 
@@ -521,12 +512,12 @@ class TyCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by TyCParser#argListNonEmpty.
-    def enterArgListNonEmpty(self, ctx:TyCParser.ArgListNonEmptyContext):
+    # Enter a parse tree produced by TyCParser#argListSub.
+    def enterArgListSub(self, ctx:TyCParser.ArgListSubContext):
         pass
 
-    # Exit a parse tree produced by TyCParser#argListNonEmpty.
-    def exitArgListNonEmpty(self, ctx:TyCParser.ArgListNonEmptyContext):
+    # Exit a parse tree produced by TyCParser#argListSub.
+    def exitArgListSub(self, ctx:TyCParser.ArgListSubContext):
         pass
 
 

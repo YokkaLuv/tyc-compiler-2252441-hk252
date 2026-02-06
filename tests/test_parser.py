@@ -615,6 +615,36 @@ def test_multiple_declarations_program():
     assert Parser(source).parse() == "success"
 
 
+def test_adjacent_int_literals_expr():
+    """111. Adjacent integer literals expression"""
+    source = "void main() { 10 -3; }"
+    assert Parser(source).parse() == "success"
+
+
+def test_adjacent_float_literals_expr():
+    """112. Adjacent float literals expression"""
+    source = "void main() { 1.5 -2.25; }"
+    assert Parser(source).parse() == "success"
+
+
+def test_adjacent_mixed_literals_expr():
+    """113. Adjacent mixed numeric literals expression"""
+    source = "void main() { 2 -3.0; }"
+    assert Parser(source).parse() == "success"
+
+
+def test_adjacent_literals_in_assignment():
+    """114. Adjacent literals in assignment"""
+    source = "void main() { int x; x = 10 -3; }"
+    assert Parser(source).parse() == "success"
+
+
+def test_adjacent_literals_in_return():
+    """115. Adjacent literals in return"""
+    source = "int f() { return 10 -3; }"
+    assert Parser(source).parse() == "success"
+
+
 # ========== Negative Test Cases (Syntax Errors) ==========
 def test_missing_semi_in_var_decl():
     """101. Missing semicolon in variable declaration"""

@@ -89,7 +89,10 @@ unaryOp: ADD | SUB | NOT | INC | DEC;
 postfixExpr: primaryExpr postfixExprTail;
 postfixExprTail: postfixExprTail postfixOp | ;
 postfixOp: DOT ID | LPAREN argList RPAREN | INC | DEC;
-primaryExpr: ID | INTLIT | FLOATLIT | STRINGLIT | LPAREN expression RPAREN | structInit;
+primaryExpr: ID | numericLiteralSeq | STRINGLIT | LPAREN expression RPAREN | structInit;
+
+numericLiteralSeq: numericLiteralSeq numericLiteral | numericLiteral;
+numericLiteral: INTLIT | FLOATLIT;
 
 structInit: LBRACE structInitList RBRACE;
 structInitList: structInitListSub | ;
@@ -145,11 +148,11 @@ SEMI: ';';
 COMMA: ',';
 COLON: ':';
 
-FLOATLIT: [0-9]+ '.' [0-9]* ([eE] [+-]? [0-9]+)?
-    | '.' [0-9]+ ([eE] [+-]? [0-9]+)?
-    | [0-9]+ [eE] [+-]? [0-9]+;
+FLOATLIT: '-'? [0-9]+ '.' [0-9]* ([eE] [+-]? [0-9]+)?
+    | '-'? '.' [0-9]+ ([eE] [+-]? [0-9]+)?
+    | '-'? [0-9]+ [eE] [+-]? [0-9]+;
 
-INTLIT: [0-9]+;
+INTLIT: '-'? [0-9]+;
 
 ILLEGAL_ESCAPE: '"' (STRING_CHAR)* '\\' ~[bfrnt"\\\r\n] {self.text = self.text[1:]};
 

@@ -515,13 +515,13 @@ def test_member_vs_float():
 def test_negative_int():
     """85. Negative integer literal (unary minus)"""
     tokenizer = Tokenizer("-45")
-    assert tokenizer.get_tokens_as_string() == "-,45,<EOF>"
+    assert tokenizer.get_tokens_as_string() == "-45,<EOF>"
 
 
 def test_negative_float():
     """86. Negative float literal (unary minus)"""
     tokenizer = Tokenizer("-3.14")
-    assert tokenizer.get_tokens_as_string() == "-,3.14,<EOF>"
+    assert tokenizer.get_tokens_as_string() == "-3.14,<EOF>"
 
 
 def test_string_newline_escape():
@@ -606,6 +606,30 @@ def test_string_multiple_escapes():
     """100. String with multiple escapes"""
     tokenizer = Tokenizer(r'"a\t\n\r"')
     assert tokenizer.get_tokens_as_string() == r"a\t\n\r,<EOF>"
+
+
+def test_adjacent_int_literals_with_negative():
+    """102. Adjacent integer literals with negative"""
+    tokenizer = Tokenizer("10 -3")
+    assert tokenizer.get_tokens_as_string() == "10,-3,<EOF>"
+
+
+def test_adjacent_float_literals_with_negative():
+    """103. Adjacent float literals with negative"""
+    tokenizer = Tokenizer("1.5 -2.25")
+    assert tokenizer.get_tokens_as_string() == "1.5,-2.25,<EOF>"
+
+
+def test_adjacent_mixed_numeric_literals():
+    """104. Adjacent mixed numeric literals"""
+    tokenizer = Tokenizer("2 -3.0")
+    assert tokenizer.get_tokens_as_string() == "2,-3.0,<EOF>"
+
+
+def test_adjacent_multiple_negative_literals():
+    """105. Multiple adjacent negative literals"""
+    tokenizer = Tokenizer("-1 -2 -3")
+    assert tokenizer.get_tokens_as_string() == "-1,-2,-3,<EOF>"
 
 
 def test_long_program_tokens():
